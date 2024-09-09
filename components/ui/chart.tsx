@@ -68,7 +68,8 @@ ChartContainer.displayName = "Chart"
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([key, value]) => value.theme || value.color
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ([_, value]) => value.theme || value.color
   )
 
   if (!colorConfig.length) {
