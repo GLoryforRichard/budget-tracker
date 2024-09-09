@@ -4,8 +4,17 @@ import { Button } from '@/components/ui/button'; // Import shadcn's Button compo
 import { Input } from '@/components/ui/input'; // Import shadcn's Input component
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'; // Import shadcn's Dropdown component
 
-export default function TransactionForm({ onAddTransaction }: { onAddTransaction: (transaction: any) => void }) {
-  const [form, setForm] = useState({ description: '', amount: '', category: '', type: 'expense' });
+interface Transaction {
+  id: string;
+  description: string;
+  amount: string; 
+  category: string;
+  type: string;
+  date: string;
+}
+
+export default function TransactionForm({ onAddTransaction }: { onAddTransaction: (transaction: Transaction) => void }) {
+  const [form, setForm] = useState<Transaction>({ id: '', description: '', amount: '', category: '', type: 'expense', date: '' });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,8 +22,8 @@ export default function TransactionForm({ onAddTransaction }: { onAddTransaction
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onAddTransaction({ ...form, id: Date.now() });
-    setForm({ description: '', amount: '', category: '', type: 'expense' });
+    onAddTransaction({ ...form, id: Date.now().toString() }); // Ensure id is a string
+    setForm({ id: '', description: '', amount: '', category: '', type: 'expense', date: '' });
   };
 
   return (

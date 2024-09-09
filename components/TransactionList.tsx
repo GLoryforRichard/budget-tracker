@@ -1,4 +1,13 @@
-export default function TransactionList({ transactions, onDeleteTransaction }: { transactions: any[], onDeleteTransaction: (id: string) => void }) {
+interface Transaction {
+    id: string;
+    description: string;
+    amount: string; 
+    category: string;
+    type: string;
+    date: string;
+}
+
+export default function TransactionList({ transactions, onDeleteTransaction }: { transactions: Transaction[]; onDeleteTransaction: (id: string) => void }) {
     return (
       <div>
         <h2 className="text-xl font-bold">Transaction Records</h2> {/* Transaction Records */}

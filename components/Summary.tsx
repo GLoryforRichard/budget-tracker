@@ -1,8 +1,18 @@
-export default function Summary({ transactions }: { transactions: any[] }) {
+
+interface Transaction {
+    id: string;
+    description: string;
+    amount: string; 
+    category: string;
+    type: string;
+    date: string;
+}
+
+export default function Summary({ transactions }: { transactions: Transaction[] }) {
     const calculateSummary = (type: string) => {
       return transactions
-        .filter((transaction: { type: string }) => transaction.type === type)
-        .reduce((acc: number, transaction: { amount: string }) => acc + parseFloat(transaction.amount), 0);
+        .filter((transaction) => transaction.type === type)
+        .reduce((acc: number, transaction) => acc + parseFloat(transaction.amount), 0);
     };
   
     return (
