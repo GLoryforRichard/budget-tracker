@@ -11,7 +11,7 @@ import Summary from '@/components/Summary';
 import IncomeExpenseChart from '@/components/IncomeExpenseChart';
 
 export default function Home() {
-  const [transactions, setTransactions] = useState<{ id: string; description: string; amount: number; category: string; type: string; date: string }[]>([]);
+  const [transactions, setTransactions] = useState<{ id: string; description: string; amount: string; category: string; type: string; date: string }[]>([]); // Change amount type to string
   useEffect(() => {
     const storedTransactions = localStorage.getItem('transactions') ? JSON.parse(localStorage.getItem('transactions') || '{}') : [];
     setTransactions(storedTransactions);
@@ -21,7 +21,7 @@ export default function Home() {
     localStorage.setItem('transactions', JSON.stringify(transactions));
   }, [transactions]);
   
-  const addTransaction = (transaction: { id: string; description: string; amount: number; category: string; type: string; date: string }) => {
+  const addTransaction = (transaction: { id: string; description: string; amount: string; category: string; type: string; date: string }) => { // Change amount type to string
     setTransactions((prevTransactions) => [...prevTransactions, { ...transaction, id: transaction.id.toString() }]); // Ensure id is a string
   };
 
@@ -37,7 +37,7 @@ export default function Home() {
   const calculateSummary = (type: string) => {
     return transactions
       .filter((transaction) => transaction.type === type)
-      .reduce((acc, transaction) => acc + transaction.amount, 0);
+      .reduce((acc, transaction) => acc + Number(transaction.amount), 0); // Convert amount to number for calculation
   };
 
   const data = [
